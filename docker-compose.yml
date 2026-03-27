@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: vexo_backend
+    restart: unless-stopped
+    env_file:
+      - ./server/.env
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - vexo_network
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: vexo_frontend
+    restart: unless-stopped
+    env_file:
+      - ./client/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - vexo_network
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+  mongodb:
+    image: mongo:6.0
+    container_name: vexo_mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: vexo_follow_bot
+    ports:
+      - "27017:27017"
+    networks:
+      - vexo_network
+    volumes:
+      - mongodb_data:/data/db
+
+  redis:
+    image: redis:7-alpine
+    container_name: vexo_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - vexo_network
+    volumes:
+      - redis_data:/data
+
+networks:
+  vexo_network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+  redis_data:
