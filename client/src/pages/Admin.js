@@ -1,4 +1,5 @@
-import React, { useState } from 'react';import {
+import React, { useState } from 'react';
+import {
   Box, Paper, Typography, Toolbar, Grid, CircularProgress,
   Table, TableBody, TableCell, TableHead, TableRow, Chip,
   Tabs, Tab, Button, TextField, Dialog, DialogTitle,
@@ -174,7 +175,7 @@ export default function Admin({ toggleTheme, themeMode }) {
                           <TableCell><Chip label={u.role} size="small" color={u.role === 'admin' ? 'error' : 'default'} /></TableCell>
                           <TableCell><Chip label={u.isBanned ? 'Banned' : 'Active'} size="small" color={u.isBanned ? 'error' : 'success'} /></TableCell>
                           <TableCell>
-        <Button size="small" onClick={() => { setEditUser(u); setEditBalance(String(u.balance || 0)); }}>Edit</Button>
+                            <Button size="small" onClick={() => { setEditUser(u); setEditBalance(String(u.balance || 0)); }}>Edit</Button>
                             {!u.isBanned && <Button size="small" color="error" onClick={() => banMutation.mutate(u._id)}>Ban</Button>}
                           </TableCell>
                         </TableRow>
