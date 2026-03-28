@@ -3,35 +3,37 @@ const handleStart = (bot, msg) => {
   const firstName = msg.from.first_name || 'User';
 
   const welcomeMessage = `
-🚀 *Welcome to VEXO Follow Bot!* 🚀
+🚀 *مرحباً بك في VEXO Follow Bot!* 🚀
+Welcome to VEXO Follow Bot!
 
-Hello, ${firstName}! 👋
+أهلاً ${firstName}! 👋
 
-I'm your personal SMM (Social Media Marketing) assistant. I can help you grow your social media presence with real followers, likes, and engagement.
+🤖 أنا مساعدك الشخصي لخدمات التسويق عبر وسائل التواصل الاجتماعي (SMM). يمكنني مساعدتك في تنمية حضورك على منصات التواصل الاجتماعي بمتابعين حقيقيين وإعجابات وتفاعل.
 
-📌 *Available Commands:*
-/packages — Browse available SMM packages
-/order — Place a new order
-/orders — View your recent orders
-/balance — Check your wallet balance
-/help — Get help & support
+I'm your personal SMM assistant for growing your social media presence with real followers, likes, and engagement.
 
-💰 *Get started* by checking our /packages and place your first order!
+📌 *الأوامر المتاحة | Available Commands:*
+/packages — 📦 استعراض الباقات | Browse packages
+/order — 🛒 تقديم طلب جديد | Place an order
+/orders — 📋 متابعة الطلبات | Track orders
+/balance — 💰 الرصيد | Check balance
+/help — ❓ المساعدة | Help & support
 
-🌟 *VEXO Follow Bot* — Your growth partner!
+💎 *VEXO Follow Bot* — شريكك في النمو | Your growth partner!
 `;
 
   const keyboard = {
     reply_markup: {
       inline_keyboard: [
         [
-          { text: '📦 Browse Packages', callback_data: 'packages' },
-          { text: '📋 My Orders', callback_data: 'orders' },
+          { text: '📦 الباقات | Packages', callback_data: 'packages' },
+          { text: '🛒 طلب جديد | New Order', callback_data: 'order' },
         ],
         [
-          { text: '💰 My Balance', callback_data: 'balance' },
-          { text: '❓ Help', callback_data: 'help' },
+          { text: '💰 الرصيد | Balance', callback_data: 'balance' },
+          { text: '📋 طلباتي | My Orders', callback_data: 'orders' },
         ],
+        [{ text: '❓ المساعدة | Help', callback_data: 'help' }],
       ],
     },
   };

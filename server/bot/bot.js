@@ -28,9 +28,26 @@ bot.on('polling_error', (error) => {
   console.error('Bot polling error:', error.message);
 });
 
+bot.on('callback_query', async (query) => {
+  const msg = query.message;
+  const data = query.data;
+
+  await bot.answerCallbackQuery(query.id);
+
+  if (data === 'packages') return handlePackages(bot, msg);
+  if (data === 'order') return handleOrder(bot, msg);
+  if (data === 'balance') return handleBalance(bot, msg);
+  if (data === 'orders') return handleOrders(bot, msg);
+  if (data === 'help') return handleHelp(bot, msg);
+  if (data === 'start') return handleStart(bot, msg);
+});
+
 bot.on('message', (msg) => {
   if (!msg.text || msg.text.startsWith('/')) return;
-  bot.sendMessage(msg.chat.id, '🤖 Use /help to see available commands.');
+  bot.sendMessage(
+    msg.chat.id,
+    '🤖 استخدم /help لعرض الأوامر المتاحة.\nUse /help to see available commands.'
+  );
 });
 
 console.log('VEXO Follow Bot is running...');
