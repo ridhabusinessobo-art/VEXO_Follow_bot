@@ -3,40 +3,53 @@ const handleHelp = (bot, msg) => {
   const adminId = process.env.ADMIN_TELEGRAM_ID;
 
   const helpMessage = `
-❓ *VEXO Follow Bot - Help & Support*
+❓ *VEXO Follow Bot — المساعدة والدعم | Help & Support*
 ━━━━━━━━━━━━━━━━━━━━━
 
-📌 *Available Commands:*
-/start — Welcome message & main menu
-/packages — Browse SMM packages
-/order — Place a new order
-/orders — Check order status
-/balance — Check panel balance
-/help — Show this help message
-/support — Contact support
-
-━━━━━━━━━━━━━━━━━━━━━
-
-💡 *How to Order:*
-1️⃣ Browse packages with /packages
-2️⃣ Note the Service ID you want
-3️⃣ Use /order and follow the steps
-4️⃣ Track your order with /orders
+📌 *الأوامر المتاحة | Available Commands:*
+/start — 🏠 القائمة الرئيسية | Main menu
+/packages — 📦 استعراض الباقات | Browse packages
+/order — 🛒 تقديم طلب | Place an order
+/orders — 📋 حالة الطلبات | Check order status
+/balance — 💰 الرصيد | Check balance
+/help — ❓ المساعدة | Show help
+/support — 📞 الدعم | Contact support
 
 ━━━━━━━━━━━━━━━━━━━━━
 
-🌐 *Web Panel:* ${process.env.CLIENT_URL || 'http://localhost:3000'}
-
-📞 *Support:* Contact admin on Telegram
-👤 *Admin ID:* ${adminId ? `[Contact Admin](tg://user?id=${adminId})` : 'N/A'}
+💡 *كيفية الطلب | How to Order:*
+1️⃣ استعرض الباقات | Browse packages: /packages
+2️⃣ احفظ رقم الخدمة | Note the Service ID
+3️⃣ قدّم طلبك | Use /order and follow the steps
+4️⃣ تتبّع طلبك | Track your order: /orders
 
 ━━━━━━━━━━━━━━━━━━━━━
-💎 *VEXO Follow Bot* — Premium SMM Services
+
+🌐 *لوحة الويب | Web Panel:* ${process.env.CLIENT_URL || 'http://localhost:3000'}
+
+📞 *الدعم | Support:* تواصل مع الإدارة | Contact admin on Telegram
+👤 *المسؤول | Admin:* ${adminId ? `[تواصل | Contact](tg://user?id=${adminId})` : 'N/A'}
+
+━━━━━━━━━━━━━━━━━━━━━
+💎 *VEXO Follow Bot* — خدمات SMM المميزة | Premium SMM Services
   `;
+
+  const keyboard = {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: '📦 الباقات | Packages', callback_data: 'packages' },
+          { text: '🛒 طلب جديد | New Order', callback_data: 'order' },
+        ],
+        [{ text: '🏠 القائمة الرئيسية | Main Menu', callback_data: 'start' }],
+      ],
+    },
+  };
 
   bot.sendMessage(chatId, helpMessage, {
     parse_mode: 'Markdown',
     disable_web_page_preview: true,
+    ...keyboard,
   });
 };
 

@@ -3,15 +3,15 @@ const axios = require('axios');
 const smmClient = axios.create({
   baseURL: process.env.SMM_API_URL,
   timeout: 30000,
-  headers: { 'Content-Type': 'application/json' },
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 });
 
 const smmRequest = async (action, params = {}) => {
-  const payload = {
+  const payload = new URLSearchParams({
     key: process.env.SMM_API_KEY,
     action,
     ...params,
-  };
+  }).toString();
   const response = await smmClient.post('', payload);
   if (response.data.error) {
     throw new Error(response.data.error);
